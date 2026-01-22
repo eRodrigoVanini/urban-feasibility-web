@@ -1,0 +1,73 @@
+.simulation-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 16px;
+  /* Sombra moderna e suave para dar profundidade */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid rgba(0, 0, 0, 0.02);
+}
+
+.form-header h3 {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group select,
+.form-group input {
+  padding: 0.9rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fafafa;
+  color: #333;
+  width: 100%;
+  box-sizing: border-box; /* Garante que o padding não aumente a largura */
+}
+
+/* Estado visual de disabled para quando não tiver dados */
+.form-group select:disabled {
+  background-color: #f0f0f0;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.btn-simulate {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  background-color: #000; /* Preto sólido para contraste */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-simulate:hover {
+  background-color: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
