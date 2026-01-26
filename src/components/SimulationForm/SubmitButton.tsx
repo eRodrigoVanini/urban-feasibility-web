@@ -11,7 +11,7 @@ function SubmitButton({ text, name }: SubmitButtonProps) {
       <button
         type="button"
         name={name}
-        className={styles.btnSimulate}
+        className={styles.btn}
       >
         {text}
       </button>
