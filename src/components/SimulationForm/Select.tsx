@@ -4,18 +4,18 @@ type SelectProps = {
   text: string;
   name: string;
   options: Array<{ id: string | number; name: string }>;
-  handleOnChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   value: string;
   disabled?: boolean;
+  handleOnChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
 function Select({
   text,
   name,
   options,
-  handleOnChange,
   value,
   disabled,
+  handleOnChange,
 }: SelectProps) {
   return (
     <div className={styles.formGroup}>
@@ -24,8 +24,8 @@ function Select({
         id={name}
         name={name}
         value={value}
-        onChange={handleOnChange}
         disabled={disabled}
+        onChange={handleOnChange}
       >
         <option></option>
         {options.map((option) => (

@@ -4,9 +4,12 @@ import style from "./SimulationForm.module.css";
 import Select from "./Select";
 import SubmitButton from "./SubmitButton";
 import Input from "./Input";
+import { type ComponentProps } from "react";
 
-type SimulationFormProps = {
+type SimulationFormProps = ComponentProps<"form"> & {
   btnText: string;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  results?: any;
 };
 
 type City = {
@@ -24,7 +27,11 @@ type UseType = {
   name: string;
 };
 
-export function SimulationForm({ btnText }: SimulationFormProps) {
+export function SimulationForm({
+  handleSubmit,
+  btnText,
+  results,
+}: SimulationFormProps) {
   const [cities, setCities] = useState<City[]>([]);
   const [zones, setZones] = useState<Zone[]>([]);
   const [useTypes, setUseTypes] = useState<UseType[]>([]);
@@ -98,9 +105,14 @@ export function SimulationForm({ btnText }: SimulationFormProps) {
     }
   }, [selectedZone]);
 
+  const submit = (e) => {
+    e.preventDefault();
+    handleSubmit(results);
+  };
+
   return (
     <div className={style.simulationCard}>
-      <form>
+      <form onSubmit={submit}>
         <div className={style.formHeader}>
           <h3>Simular Viabilidade</h3>
         </div>

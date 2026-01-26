@@ -1,16 +1,13 @@
 import styles from "./Submit.module.css";
 
 type SubmitButtonProps = {
-  text: string;
+  text: any;
 };
 
 function SubmitButton({ text }: SubmitButtonProps) {
   return (
     <div>
-      <button
-        type="button"
-        className={styles.btn}
-      >
+      <button type="submit" className={styles.btn}>
         {text}
       </button>
     </div>

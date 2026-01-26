@@ -2,9 +2,25 @@ import { SimulationForm } from "../../components/SimulationForm";
 import "./style.css";
 
 export function Home() {
+  function handleSimulationSubmit(lot: any) {
+    lot.data = [];
 
+    fetch("http://localhost:3000/simulations", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(lot),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Simulação criada:", data);
+      })
+      .catch((error) => {
+        console.error("Erro ao criar simulação:", error);
+      });
+  }
 
-  
   return (
     <div className="home-container">
       <div className="hero-wrapper">
@@ -21,7 +37,10 @@ export function Home() {
         </div>
 
         <div className="hero-form-container">
-          <SimulationForm btnText="Calcular Agora" />
+          <SimulationForm
+            btnText="Calcular Agora"
+            handleSubmit={handleSimulationSubmit}
+          />
         </div>
       </div>
     </div>
