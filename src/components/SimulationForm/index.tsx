@@ -1,40 +1,44 @@
-import './style.css';
+import style from "./SimulationForm.module.css";
+import Select from "./Select";
 
 export function SimulationForm() {
   return (
-    <div className="simulation-card">
+    <div className={style.simulationCard}>
       <form>
-        <div className="form-header">
+        <div className={style.formHeader}>
           <h3>Simular Viabilidade</h3>
         </div>
 
-        <div className="form-group">
-          <label>Cidade</label>
-          <select disabled>
-            <option>Selecione a cidade...</option>
-          </select>
+        <div className={style.formGroup}>
+          <Select
+            name="citySelect"
+            text="Selecione o Município"
+            options={[]}
+            handleOnChange={() => {}}
+            value=""
+          />
         </div>
 
-        <div className="form-group">
+        <div className={style.formGroup}>
           <label>Zona</label>
           <select disabled>
             <option>Selecione a zona...</option>
           </select>
         </div>
 
-        <div className="form-group">
-          <label>Uso do Solo</label>
+        <div className={style.formGroup}>
+          <label>Tipo de uso</label>
           <select disabled>
             <option>Selecione o uso...</option>
           </select>
         </div>
 
-        <div className="form-group">
+        <div className={style.formGroup}>
           <label>Área do Lote (m²)</label>
           <input type="number" placeholder="Ex: 500" />
         </div>
 
-        <button type="button" className="btn-simulate">
+        <button type="button" className={style.btnSimulate}>
           Calcular Agora
         </button>
       </form>
