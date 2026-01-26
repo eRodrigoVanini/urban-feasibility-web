@@ -1,5 +1,6 @@
 import style from "./SimulationForm.module.css";
 import Select from "./Select";
+import SubmitButton from "./SubmitButton";
 
 export function SimulationForm() {
   return (
@@ -38,9 +39,10 @@ export function SimulationForm() {
           <input type="number" placeholder="Ex: 500" />
         </div>
 
-        <button type="button" className={style.btnSimulate}>
-          Calcular Agora
-        </button>
+        <SubmitButton
+          text="Calcular Agora"
+          name="calculateButton"
+        />
       </form>
     </div>
   );
