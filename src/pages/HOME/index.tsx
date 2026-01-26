@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   SimulationForm,
   type SimulationPayload,
@@ -5,6 +6,8 @@ import {
 import "./style.css";
 
 export function Home() {
+  const navigate = useNavigate();
+
   function handleSimulationSubmit(data: SimulationPayload) {
     fetch("http://localhost:3000/simulations", {
       method: "POST",
@@ -15,8 +18,7 @@ export function Home() {
     })
       .then((res) => res.json())
       .then((respostaApi) => {
-        console.log(respostaApi);
-        alert("Sucesso!");
+        navigate("/analyzes", { state: respostaApi });
       })
       .catch((error) => console.error(error));
   }
