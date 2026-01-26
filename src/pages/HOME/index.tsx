@@ -2,6 +2,9 @@ import { SimulationForm } from "../../components/SimulationForm";
 import "./style.css";
 
 export function Home() {
+
+
+  
   return (
     <div className="home-container">
       <div className="hero-wrapper">

@@ -9,23 +9,94 @@ type SimulationFormProps = {
   btnText: string;
 };
 
-export function SimulationForm({ btnText }: SimulationFormProps) {
-  const [cities, setCities] = useState([]);
+type City = {
+  id: string | number;
+  name: string;
+};
 
-useEffect(() => {
+type Zone = {
+  id: string | number;
+  name: string;
+};
+
+type UseType = {
+  id: string | number;
+  name: string;
+};
+
+export function SimulationForm({ btnText }: SimulationFormProps) {
+  const [cities, setCities] = useState<City[]>([]);
+  const [zones, setZones] = useState<Zone[]>([]);
+  const [useTypes, setUseTypes] = useState<UseType[]>([]);
+
+  const [selectedCity, setSelectedCity] = useState("");
+  const [selectedZone, setSelectedZone] = useState("");
+  const [selectedUseType, setSelectedUseType] = useState("");
+  const [lotArea, setLotArea] = useState("");
+
+  // Carregar cidades ao montar o componente
+  useEffect(() => {
     try {
-    fetch("http://localhost:3000/cities", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setCities(data));
-  } catch (error) {
-    console.log(error);
-  }
-}, []);
+      fetch("http://localhost:3000/cities", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => setCities(data));
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
+  // Carregar zonas quando a cidade mudar
+  useEffect(() => {
+    if (selectedCity) {
+      try {
+        fetch(`http://localhost:3000/zones`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setZones(data);
+            setSelectedZone(""); // Limpa a zona selecionada
+            setUseTypes([]); // Limpa os tipos de uso
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setZones([]);
+      setUseTypes([]);
+    }
+  }, [selectedCity]);
+
+  // Carregar tipos de uso quando a zona mudar
+  useEffect(() => {
+    if (selectedZone) {
+      try {
+        fetch(`http://localhost:3000/useTypes`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setUseTypes(data);
+            setSelectedUseType(""); // Limpa o tipo de uso selecionado
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setUseTypes([]);
+    }
+  }, [selectedZone]);
 
   return (
     <div className={style.simulationCard}>
@@ -38,27 +109,34 @@ useEffect(() => {
           name="citySelect"
           text="Selecione o Município"
           options={cities}
-          handleOnChange={() => {}}
-          value=""
+          handleOnChange={(e) => setSelectedCity(e.target.value)}
+          value={selectedCity}
         />
 
         <Select
-          name="citySelect"
+          name="zoneSelect"
           text="Selecione a Zona"
-          options={[]}
-          handleOnChange={() => {}}
-          value=""
+          options={zones}
+          handleOnChange={(e) => setSelectedZone(e.target.value)}
+          value={selectedZone}
+          disabled={!selectedCity}
         />
 
         <Select
-          name="citySelect"
+          name="useTypeSelect"
           text="Selecione o Tipo de Uso"
-          options={[]}
-          handleOnChange={() => {}}
-          value=""
+          options={useTypes}
+          handleOnChange={(e) => setSelectedUseType(e.target.value)}
+          value={selectedUseType}
+          disabled={!selectedZone}
         />
 
-        <Input text="Área do Lote (m²)" name="lotArea" value="" />
+        <Input
+          text="Área do Lote (m²)"
+          name="lotArea"
+          value={lotArea}
+          handleOnChange={(e) => setLotArea(e.target.value)}
+        />
 
         <SubmitButton text={btnText} />
       </form>

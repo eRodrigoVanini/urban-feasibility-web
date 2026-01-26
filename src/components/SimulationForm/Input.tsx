@@ -5,13 +5,20 @@ type InputProps = {
   name: string;
   value: string;
   disabled?: boolean;
+  handleOnChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-function Input({ text, name, value, disabled }: InputProps) {
+function Input({ text, name, value, disabled, handleOnChange }: InputProps) {
   return (
     <div className={styles.Input}>
       <label htmlFor={name}>{text}:</label>
-      <input id={name} name={name} value={value} disabled={disabled} />
+      <input
+        id={name}
+        name={name}
+        value={value}
+        disabled={disabled}
+        onChange={handleOnChange}
+      />
     </div>
   );
 }
