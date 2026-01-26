@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import style from "./SimulationForm.module.css";
 import Select from "./Select";
@@ -10,16 +10,22 @@ type SimulationFormProps = {
 };
 
 export function SimulationForm({ btnText }: SimulationFormProps) {
-
   const [cities, setCities] = useState([]);
 
-  try {
-    fetch("http://localhost:3000/cities")
+useEffect(() => {
+    try {
+    fetch("http://localhost:3000/cities", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((res) => res.json())
       .then((data) => setCities(data));
   } catch (error) {
     console.log(error);
   }
+}, []);
 
   return (
     <div className={style.simulationCard}>
@@ -31,7 +37,7 @@ export function SimulationForm({ btnText }: SimulationFormProps) {
         <Select
           name="citySelect"
           text="Selecione o Município"
-          options={[]}
+          options={cities}
           handleOnChange={() => {}}
           value=""
         />

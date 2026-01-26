@@ -9,12 +9,30 @@ type SelectProps = {
   disabled?: boolean;
 };
 
-function Select({ text, name, options, handleOnChange, value, disabled }: SelectProps) {
+function Select({
+  text,
+  name,
+  options,
+  handleOnChange,
+  value,
+  disabled,
+}: SelectProps) {
   return (
     <div className={styles.formGroup}>
       <label htmlFor={name}>{text}:</label>
-      <select id={name} name={name} value={value} onChange={handleOnChange} disabled={disabled}>
+      <select
+        id={name}
+        name={name}
+        value={value}
+        onChange={handleOnChange}
+        disabled={disabled}
+      >
         <option></option>
+        {options.map((option) => (
+          <option key={option.id} value={option.id}>
+            {option.name}
+          </option>
+        ))}
       </select>
     </div>
   );
