@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import style from "./SimulationForm.module.css";
 import Select from "./Select";
 import SubmitButton from "./SubmitButton";
@@ -8,6 +10,17 @@ type SimulationFormProps = {
 };
 
 export function SimulationForm({ btnText }: SimulationFormProps) {
+
+  const [cities, setCities] = useState([]);
+
+  try {
+    fetch("http://localhost:3000/cities")
+      .then((res) => res.json())
+      .then((data) => setCities(data));
+  } catch (error) {
+    console.log(error);
+  }
+
   return (
     <div className={style.simulationCard}>
       <form>
